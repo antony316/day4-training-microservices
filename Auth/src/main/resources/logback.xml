@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{ISO8601} %-5level %X{pid} --- [%15thread] %-50logger{36} : %msg %n
+      </pattern>
+    </encoder>
+  </appender>
+  <appender name="sizeAndTimeBasedRollingFileAppender"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/auth.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>logs/auth.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxFileSize>50MB</maxFileSize>
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>2GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+        <maxDepthPerThrowable>1000</maxDepthPerThrowable>
+        <maxLength>8192</maxLength>
+        <shortenedClassNameLength>20</shortenedClassNameLength>
+        <rootCauseFirst>true</rootCauseFirst>
+      </throwableConverter>
+    </encoder>
+  </appender>
+  <logger name="org.springframework">
+    <level value="INFO"/>
+    <appender-ref ref="sizeAndTimeBasedRollingFileAppender"/>
+  </logger>
+  <root>
+    <level value="INFO"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="sizeAndTimeBasedRollingFileAppender"/>
+  </root>
+</configuration>
