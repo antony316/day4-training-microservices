@@ -12,6 +12,8 @@ Auth Module include :
 - GET https://localhost:8443/api/entity/1
 - POST https://localhost:8443/api/entity
 - PUT https://localhost:8443/api/entity/1
+4. Rest API With Circuit Breaker Using resilience4j
+- GET https://localhost:8443/api/weather/jakarta
 - DELETE https://localhost:8443/api/entity/1
 4. Rest API with Monitoring Using Actuator
 - GET https://localhost:8443/actuator/health
